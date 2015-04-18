@@ -1,0 +1,3 @@
+DATABASE='quotes.db'
+PAGINATION=5
+TITLE='PQDB'
