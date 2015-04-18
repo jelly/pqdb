@@ -1,4 +1,5 @@
 import sqlite3
+from math import ceil
 
 from flask import Flask, g, render_template, redirect, flash, request, url_for
 
@@ -32,11 +33,22 @@ def init_db():
         db.commit()
 
 @app.route('/')
-def show_quotes():
+@app.route('/<int:page>')
+def show_quotes(page=1):
     db = get_db()
-    cur = db.execute('select author, text, ts from quotes order by id desc')
+    page_size = app.config['PAGINATION']
+    cur = db.execute('select count(*) as total from quotes')
+    total = cur.fetchone()['total']
+    pages = int(ceil(total / float(page_size)))
+
+    if 0 < page <= pages:
+        offset = (page-1) * page_size
+    else:
+        pages = offset = 0 # XXX: or just display last page?
+
+    cur = db.execute('select author, text, ts from quotes order by id desc limit ?, ?', (offset ,page_size))
     quotes = cur.fetchall()
-    return render_template('index.html', quotes=quotes)
+    return render_template('index.html', quotes=quotes, pages=pages, current=page)
 
 @app.route('/add', methods=['POST', 'GET'])
 def add_quote():
