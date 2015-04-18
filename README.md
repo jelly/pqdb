@@ -6,6 +6,9 @@ Requirements
 
 * Python-flask
 
+Configuration
+--------------
+
 Running
 -------
 
