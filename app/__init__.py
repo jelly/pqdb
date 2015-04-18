@@ -5,6 +5,7 @@ from flask import Flask, g, render_template, redirect, flash, request, url_for
 
 app = Flask(__name__)
 app.config.from_object('config')
+app.secret_key = app.config['SECRET_KEY']
 
 def connect_db():
     """Connects to the specific database."""
@@ -57,7 +58,7 @@ def add_quote():
         # XSS http://flask.pocoo.org/docs/0.10/security/#cross-site-scripting-xss
         db.execute('insert into quotes (text, author) values (?, ?)', (request.form['text'], request.form['author']))
         db.commit()
-        #flash('New quote has been added succsefully
+        flash('New quote has been added succsefully')
         return redirect(url_for('show_quotes'))
     else:
         return render_template('add.html')

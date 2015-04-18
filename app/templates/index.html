@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% set active_page = "show_quotes" %}
 {% block content %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-info" role="alert">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <strong>{{ message }}</strong>
+        </div>
+    {% endfor %}
+  {% endif %}
+{% endwith%}
 <div class='quotes page-header'>
     <h1>Quotes</h1>
 </div>
@@ -24,4 +34,9 @@
     </ul>
     {% endif %}
 </div>
+<script type=text/javascript>
+setTimeout(function() {
+        $('.alert').remove();
+}, 5000);
+</script>
 {% endblock %}
