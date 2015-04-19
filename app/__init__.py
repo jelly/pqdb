@@ -67,6 +67,5 @@ def add_quote():
 def random_quote():
     db = get_db()
     cur = db.execute('select author, text, ts from quotes order by random() limit 1')
-    quote =  cur.fetchone()
-    print quote
+    quote = cur.fetchone()
     return render_template('random.html', quote=quote)
