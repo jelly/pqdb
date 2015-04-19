@@ -18,4 +18,11 @@
     <button type=submit class='btn btn-primary'>Submit</button>
 </form>
 </div>
+<script type=text/javascript>
+$('.btn-primary').click(function(e) {
+    if(!$('input[name=author]').val() || !$('textarea[name=text]').val()){
+        e.preventDefault();
+    }
+});
+</script>
 {% endblock %}
