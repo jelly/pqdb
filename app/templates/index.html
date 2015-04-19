@@ -22,7 +22,8 @@
                 <p class=list-group-item-text>{{ quote.text }}</p>
                 <em>{{ quote.ts }}</em>
         {% else %}
-            <li><em>No quotes!</em>
+            <li class=list-group-item>
+            <em>No quotes!</em>
         {% endfor %}
     </ul>
     {% if pages > 1 %}
