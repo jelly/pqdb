@@ -1,7 +1,7 @@
 import sqlite3
 from math import ceil
 
-from flask import Flask, g, render_template, redirect, flash, request, url_for
+from flask import Flask, g, render_template, redirect, flash, request, url_for, jsonify
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -68,4 +68,7 @@ def random_quote():
     db = get_db()
     cur = db.execute('select author, text, ts from quotes order by random() limit 1')
     quote = cur.fetchone()
-    return render_template('random.html', quote=quote)
+    if request.headers['Content-Type'] == 'application/json':
+        return jsonify(quote)
+    else:
+        return render_template('random.html', quote=quote)
