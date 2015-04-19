@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% set active_page = "random_quote" %}
+{% block content %}
+<div class='quotes page-header'>
+    <h1>Random quote</h1>
+</div>
+<div class=row>
+    <ul class=list-group>
+        {% if quote %}
+        <li class=list-group-item>
+                <h4 class=list-group-item-heading>{{ quote.author }}</h4>
+                <p class=list-group-item-text>{{ quote.text }}</p>
+                <em style="position:absolute;bottom:0px;right:5px;font-size: 10px">{{ quote.ts }}</em>
+        {% else %}
+            <li class=list-group-item>
+            <em>No quotes!</em>
+        {% endif %}
+    </ul>
+</div>
+{% endblock %}

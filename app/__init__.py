@@ -62,3 +62,11 @@ def add_quote():
         return redirect(url_for('show_quotes'))
     else:
         return render_template('add.html')
+
+@app.route('/random')
+def random_quote():
+    db = get_db()
+    cur = db.execute('select author, text, ts from quotes order by random() limit 1')
+    quote =  cur.fetchone()
+    print quote
+    return render_template('random.html', quote=quote)
